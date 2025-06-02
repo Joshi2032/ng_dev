@@ -28,4 +28,4 @@ jobs:
       - name: Deploy to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx angular-cli-ghpages --dir=dist/dev-ops --name="Joshi2032" --email="joshi.jc2032@gmail.com" --repo=https://github.com/Joshi2032/devOps.git
+        run: npx angular-cli-ghpages --dir=dist/dev-ops --no-silent --name="Joshi2032" --email="joshi.jc2032@gmail.com" --repo=https://github.com/Joshi2032/devOps.git
