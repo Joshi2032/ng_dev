@@ -3,7 +3,6 @@ name: Build & Deploy to GitHub Pages
 on:
   push:
     branches: ["master"]
-
   workflow_dispatch:
 
 jobs:
@@ -25,7 +24,13 @@ jobs:
       - name: Build Angular project
         run: npm run build -- --configuration=production --base-href=/devOps/
 
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/devOps
+
       - name: Deploy to GitHub Pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx angular-cli-ghpages --dir=dist/devOps --name="Joshi2032" --email="joshi.jc2032@gmail.com" --repo=https://github.com/Joshi2032/devOps.git
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
