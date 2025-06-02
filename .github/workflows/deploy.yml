@@ -1,0 +1,31 @@
+name: Build & Deploy to GitHub Pages
+
+on:
+ push:
+   branches: ["master"]
+
+ workflow_dispatch:
+
+jobs:
+ deploy:
+   runs-on: ubuntu-latest
+
+   steps:
+     - name: Checkout repository
+       uses: actions/checkout@v4
+
+     - name: Setup Node.js
+       uses: actions/setup-node@v4
+       with:
+         node-version: 20
+
+     - name: Install dependencies
+       run: npm install
+
+     - name: Build Angular project
+       run: npm run build -- --configuration production --base-href=/ng_dev/
+
+     - name: Deploy to GitHub Pages
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       run: npx angular-cli-ghpages --dir=dist/ng_dev --name="Joshi2032" --email="joshi.jc2032@gmail.com" --repo=https://github.com/Joshi2032/ng_dev.git
